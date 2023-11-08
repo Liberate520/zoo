@@ -1,31 +1,63 @@
 package presenter;
 
+import model.animal.animals.Animal;
 import model.service.Service;
+import model.tricks.tricks.Trick;
 import ui.View;
 
 public class Presenter {
     private View view;
     private final Service service;
 
-    public Presenter(View view, Service service) {
+    public Presenter(View view) {
         this.view = view;
-        this.service = service;
-        view.setPresenter(this);
+        service = new Service();
     }
 
-    public void addAnimals(String name){
-        service.add(name);
+    /**
+     * Команда для добавления нового животного
+     * @param choice номер типа животного, который надо создать
+     * @param name имя для нового животного
+     */
+    public void addAnimal(int choice, String name){
+        view.printAnswer(service.addAnimal(choice, name));
     }
 
-    public void addCommand(String name){
-        service.addCommand();
+    /**
+     * Предоставляет список изученных трюков животного
+     * @param animalNumber номер животного, трюки которого интересуют
+     */
+    public void getAnimalTricks(int animalNumber){
+         service.getAnimalTricks(animalNumber);
     }
 
-    public void counter(){
-        service.counter();
+    /**
+     * Предоставляет список всех имеющихся животных
+     */
+    public void getAnimals(){
+        view.printAnswer(service.getAnimals());
     }
 
-    public  void listOfCommand(String name){
-        service.listOfCommand();
+    /**
+     * Предоставляет список возможных трюков для изучения
+     */
+    public void getTricks(){
+        view.printAnswer(service.getTricks());
+    }
+
+    /**
+     * Добавляет животному новый трюк
+     * @param animalNumber номер животного, которому собираемся добавить новый трюк
+     * @param trickNumber номер типа трюка, который собираемся добавить животному
+     */
+    public void addTrick(int animalNumber, int trickNumber){
+        view.printAnswer(service.addTrick(animalNumber, trickNumber));
+    }
+
+    /**
+     * Предоставляет список возможных вариантов животных для создания
+     */
+    public void getAnimalsForCreate(){
+        view.printAnswer(service.getAnimalsForCreate());
     }
 }
